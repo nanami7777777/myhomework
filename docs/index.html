@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HotpotQA Redis Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">课程作业 · Redis + HotpotQA + GitHub Pages</p>
+          <h1>HotpotQA 多跳检索与可视化面板</h1>
+          <p class="hero-text">
+            使用 Redis 管理 HotpotQA 样本，支持多跳路径查看、简单聚类和可视化。
+            页面优先连接本地 API，失败时自动回退到静态 Demo 数据，适合直接托管到 GitHub Pages。
+          </p>
+        </div>
+        <div class="hero-side">
+          <div class="status-card">
+            <span>当前模式</span>
+            <strong id="modeBadge">检测中</strong>
+          </div>
+          <div class="status-card">
+            <span>数据源</span>
+            <strong id="dataBadge">等待加载</strong>
+          </div>
+        </div>
+      </header>
+
+      <section class="panel controls-panel">
+        <div class="control-group search-group">
+          <label for="searchInput">查询问题 / 标题 / 句子</label>
+          <input id="searchInput" type="text" placeholder="例如：arthur magazine" />
+        </div>
+        <div class="control-group">
+          <label for="splitFilter">Split</label>
+          <select id="splitFilter">
+            <option value="">全部</option>
+            <option value="train">train</option>
+            <option value="validation">validation</option>
+            <option value="test">test</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="typeFilter">Type</label>
+          <select id="typeFilter">
+            <option value="">全部</option>
+            <option value="bridge">bridge</option>
+            <option value="comparison">comparison</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="levelFilter">Level</label>
+          <select id="levelFilter">
+            <option value="">全部</option>
+            <option value="easy">easy</option>
+            <option value="medium">medium</option>
+            <option value="hard">hard</option>
+          </select>
+        </div>
+        <button id="searchButton" class="primary-button">搜索</button>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="panel stats-panel">
+          <div class="panel-title-row">
+            <h2>数据概览</h2>
+            <span id="statsHint">加载中...</span>
+          </div>
+          <div class="stats-cards">
+            <article class="metric-card">
+              <span>总样本数</span>
+              <strong id="totalSamples">-</strong>
+            </article>
+            <article class="metric-card">
+              <span>Bridge 数量</span>
+              <strong id="bridgeCount">-</strong>
+            </article>
+            <article class="metric-card">
+              <span>Comparison 数量</span>
+              <strong id="comparisonCount">-</strong>
+            </article>
+          </div>
+          <div class="stats-lists">
+            <div>
+              <h3>按 Split</h3>
+              <ul id="splitStats"></ul>
+            </div>
+            <div>
+              <h3>按 Level</h3>
+              <ul id="levelStats"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel results-panel">
+          <div class="panel-title-row">
+            <h2>检索结果</h2>
+            <span id="resultCount">0 条</span>
+          </div>
+          <div id="resultsList" class="results-list"></div>
+        </div>
+      </section>
+
+      <section class="details-grid">
+        <div class="panel detail-panel">
+          <div class="panel-title-row">
+            <h2>样本详情</h2>
+            <span id="sampleMeta">未选择样本</span>
+          </div>
+          <article id="sampleDetail" class="sample-detail empty-state">
+            请选择左侧检索结果查看问题、答案和 supporting facts。
+          </article>
+        </div>
+
+        <div class="panel graph-panel">
+          <div class="panel-title-row">
+            <h2>多跳路径可视化</h2>
+            <span>Question → Evidence → Answer</span>
+          </div>
+          <div id="graphContainer" class="graph-container"></div>
+        </div>
+      </section>
+
+      <section class="panel cluster-panel">
+        <div class="panel-title-row">
+          <h2>简单聚类</h2>
+          <span id="clusterHint">展示当前检索结果的聚类概况</span>
+        </div>
+        <div class="cluster-grid">
+          <canvas id="clusterChart"></canvas>
+          <div id="clusterList" class="cluster-list"></div>
+        </div>
+      </section>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

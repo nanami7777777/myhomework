@@ -1,0 +1,363 @@
+{
+  "generated_at": "2026-05-31T18:40:00+08:00",
+  "stats": {
+    "total_samples": 3,
+    "by_split": {
+      "validation": 3
+    },
+    "by_type": {
+      "bridge": 1,
+      "comparison": 2
+    },
+    "by_level": {
+      "easy": 1,
+      "hard": 1,
+      "medium": 1
+    }
+  },
+  "records": [
+    {
+      "id": "demo-arthur",
+      "subset": "distractor",
+      "split": "validation",
+      "question": "Which magazine was started first Arthur's Magazine or First for Women?",
+      "answer": "Arthur's Magazine",
+      "type": "comparison",
+      "level": "medium",
+      "context_docs": [
+        {
+          "title": "Arthur's Magazine",
+          "sentences": [
+            "Arthur's Magazine was an American literary periodical first published in 1844."
+          ]
+        },
+        {
+          "title": "First for Women",
+          "sentences": [
+            "First for Women is a women's magazine that first appeared in 1989."
+          ]
+        }
+      ],
+      "supporting_facts": [
+        {
+          "title": "Arthur's Magazine",
+          "sent_id": 0
+        },
+        {
+          "title": "First for Women",
+          "sent_id": 0
+        }
+      ]
+    },
+    {
+      "id": "demo-dune",
+      "subset": "distractor",
+      "split": "validation",
+      "question": "Who wrote the novel Dune?",
+      "answer": "Frank Herbert",
+      "type": "bridge",
+      "level": "easy",
+      "context_docs": [
+        {
+          "title": "Dune",
+          "sentences": [
+            "Dune is a 1965 science fiction novel by American author Frank Herbert."
+          ]
+        },
+        {
+          "title": "Frank Herbert",
+          "sentences": [
+            "Frank Herbert was an American science-fiction author best known for Dune."
+          ]
+        }
+      ],
+      "supporting_facts": [
+        {
+          "title": "Dune",
+          "sent_id": 0
+        },
+        {
+          "title": "Frank Herbert",
+          "sent_id": 0
+        }
+      ]
+    },
+    {
+      "id": "demo-france",
+      "subset": "distractor",
+      "split": "validation",
+      "question": "Which city is the capital of France?",
+      "answer": "Paris",
+      "type": "comparison",
+      "level": "hard",
+      "context_docs": [
+        {
+          "title": "Paris",
+          "sentences": [
+            "Paris is the capital and most populous city of France."
+          ]
+        },
+        {
+          "title": "France",
+          "sentences": [
+            "France is a country in Western Europe whose capital is Paris."
+          ]
+        }
+      ],
+      "supporting_facts": [
+        {
+          "title": "Paris",
+          "sent_id": 0
+        },
+        {
+          "title": "France",
+          "sent_id": 0
+        }
+      ]
+    }
+  ],
+  "paths": {
+    "demo-arthur": {
+      "sample_id": "demo-arthur",
+      "question_type": "comparison",
+      "nodes": [
+        {
+          "id": "question",
+          "kind": "question",
+          "label": "Which magazine was started first Arthur's Magazine or First for Women?"
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "label": "Arthur's Magazine"
+        },
+        {
+          "id": "title:Arthur's Magazine",
+          "kind": "title",
+          "label": "Arthur's Magazine"
+        },
+        {
+          "id": "sentence:Arthur's Magazine:0",
+          "kind": "sentence",
+          "label": "Arthur's Magazine was an American literary periodical first published in 1844."
+        },
+        {
+          "id": "title:First for Women",
+          "kind": "title",
+          "label": "First for Women"
+        },
+        {
+          "id": "sentence:First for Women:0",
+          "kind": "sentence",
+          "label": "First for Women is a women's magazine that first appeared in 1989."
+        }
+      ],
+      "edges": [
+        {
+          "source": "question",
+          "target": "title:Arthur's Magazine",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:Arthur's Magazine",
+          "target": "sentence:Arthur's Magazine:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:Arthur's Magazine:0",
+          "target": "answer",
+          "kind": "leads_to"
+        },
+        {
+          "source": "question",
+          "target": "title:First for Women",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:First for Women",
+          "target": "sentence:First for Women:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:First for Women:0",
+          "target": "answer",
+          "kind": "leads_to"
+        }
+      ]
+    },
+    "demo-dune": {
+      "sample_id": "demo-dune",
+      "question_type": "bridge",
+      "nodes": [
+        {
+          "id": "question",
+          "kind": "question",
+          "label": "Who wrote the novel Dune?"
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "label": "Frank Herbert"
+        },
+        {
+          "id": "title:Dune",
+          "kind": "title",
+          "label": "Dune"
+        },
+        {
+          "id": "sentence:Dune:0",
+          "kind": "sentence",
+          "label": "Dune is a 1965 science fiction novel by American author Frank Herbert."
+        },
+        {
+          "id": "title:Frank Herbert",
+          "kind": "title",
+          "label": "Frank Herbert"
+        },
+        {
+          "id": "sentence:Frank Herbert:0",
+          "kind": "sentence",
+          "label": "Frank Herbert was an American science-fiction author best known for Dune."
+        }
+      ],
+      "edges": [
+        {
+          "source": "question",
+          "target": "title:Dune",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:Dune",
+          "target": "sentence:Dune:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:Dune:0",
+          "target": "answer",
+          "kind": "leads_to"
+        },
+        {
+          "source": "question",
+          "target": "title:Frank Herbert",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:Frank Herbert",
+          "target": "sentence:Frank Herbert:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:Frank Herbert:0",
+          "target": "answer",
+          "kind": "leads_to"
+        }
+      ]
+    },
+    "demo-france": {
+      "sample_id": "demo-france",
+      "question_type": "comparison",
+      "nodes": [
+        {
+          "id": "question",
+          "kind": "question",
+          "label": "Which city is the capital of France?"
+        },
+        {
+          "id": "answer",
+          "kind": "answer",
+          "label": "Paris"
+        },
+        {
+          "id": "title:Paris",
+          "kind": "title",
+          "label": "Paris"
+        },
+        {
+          "id": "sentence:Paris:0",
+          "kind": "sentence",
+          "label": "Paris is the capital and most populous city of France."
+        },
+        {
+          "id": "title:France",
+          "kind": "title",
+          "label": "France"
+        },
+        {
+          "id": "sentence:France:0",
+          "kind": "sentence",
+          "label": "France is a country in Western Europe whose capital is Paris."
+        }
+      ],
+      "edges": [
+        {
+          "source": "question",
+          "target": "title:Paris",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:Paris",
+          "target": "sentence:Paris:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:Paris:0",
+          "target": "answer",
+          "kind": "leads_to"
+        },
+        {
+          "source": "question",
+          "target": "title:France",
+          "kind": "mentions"
+        },
+        {
+          "source": "title:France",
+          "target": "sentence:France:0",
+          "kind": "supports"
+        },
+        {
+          "source": "sentence:France:0",
+          "target": "answer",
+          "kind": "leads_to"
+        }
+      ]
+    }
+  },
+  "clusters": [
+    {
+      "label": "magazine / first / arthur",
+      "size": 1,
+      "keywords": [
+        "magazine",
+        "first",
+        "arthur"
+      ],
+      "sample_ids": [
+        "demo-arthur"
+      ]
+    },
+    {
+      "label": "dune / wrote / novel",
+      "size": 1,
+      "keywords": [
+        "dune",
+        "wrote",
+        "novel"
+      ],
+      "sample_ids": [
+        "demo-dune"
+      ]
+    },
+    {
+      "label": "capital / france / city",
+      "size": 1,
+      "keywords": [
+        "capital",
+        "france",
+        "city"
+      ],
+      "sample_ids": [
+        "demo-france"
+      ]
+    }
+  ]
+}
