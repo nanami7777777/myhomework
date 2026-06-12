@@ -31,6 +31,15 @@
         </div>
       </header>
 
+      <section id="redisHint" class="panel redis-hint" style="display:none">
+        <p>
+          <strong>💡 当前为静态 Demo 模式，搜索在浏览器内完成。</strong>
+          如需使用 Redis 在线检索（满足作业要求），请在终端运行：
+          <code>uvicorn app.main:app --reload</code> 并启动本地 Redis，
+          页面会自动切换至 Redis 模式，或通过 <code>?apiBase=http://127.0.0.1:8000/api</code> 手动指定。
+        </p>
+      </section>
+
       <section class="panel controls-panel">
         <div class="control-group search-group">
           <label for="searchInput">查询问题 / 标题 / 句子</label>
