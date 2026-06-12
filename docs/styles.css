@@ -331,7 +331,7 @@ select {
 
 #clusterChart {
   width: 100%;
-  min-height: 320px;
+  height: 320px;
 }
 
 .cluster-grid {
@@ -342,17 +342,23 @@ select {
 .cluster-list {
   display: grid;
   gap: 10px;
+  max-height: 380px;
+  overflow-y: auto;
 }
 
 .cluster-item h3 {
   margin: 0 0 6px;
   font-size: 15px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .cluster-item p {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .empty-state {
