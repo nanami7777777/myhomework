@@ -102,14 +102,8 @@ function recordMatchesFilters(record, filters) {
 }
 
 function scoreRecord(record, queryTokens) {
-  if (!queryTokens.length) {
-    return 1;
-  }
+  if (!queryTokens.length) return 1;
   var haystack = [record.question, record.answer];
-  (record.context_docs || []).forEach(function (doc) {
-    haystack.push(doc.title);
-    haystack.push.apply(haystack, doc.sentences || []);
-  });
   var tokenBag = tokenize(haystack.join(' '));
   return queryTokens.reduce(function (score, token) {
     return score + tokenBag.filter(function (item) { return item === token; }).length;
