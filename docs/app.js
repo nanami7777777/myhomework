@@ -104,6 +104,9 @@ function recordMatchesFilters(record, filters) {
 function scoreRecord(record, queryTokens) {
   if (!queryTokens.length) return 1;
   var haystack = [record.question, record.answer];
+  (record.context_docs || []).forEach(function (doc) {
+    haystack.push(doc.title);
+  });
   var tokenBag = tokenize(haystack.join(' '));
   return queryTokens.reduce(function (score, token) {
     return score + tokenBag.filter(function (item) { return item === token; }).length;
@@ -235,7 +238,7 @@ function renderResults(results) {
   elements.resultCount.textContent = results.length + ' 条';
 
   if (!results.length) {
-    elements.resultsList.innerHTML = '<div class="empty-state">没有命中结果，试试更短的关键词（如 magazine、capital、dune）。</div>';
+    elements.resultsList.innerHTML = '<div class="empty-state">没有命中结果。<br>试试搜索：Derrickson、band、football、church、opera、novel、airport、film、director</div>';
     return;
   }
 
