@@ -106,11 +106,15 @@ function scoreRecord(record, queryTokens) {
   var haystack = [record.question, record.answer];
   (record.context_docs || []).forEach(function (doc) {
     haystack.push(doc.title);
+    if (doc.sentences && doc.sentences.length) {
+      haystack.push(doc.sentences[0]);
+    }
   });
   var tokenBag = tokenize(haystack.join(' '));
-  return queryTokens.reduce(function (score, token) {
-    return score + tokenBag.filter(function (item) { return item === token; }).length;
+  var hits = queryTokens.reduce(function (sum, token) {
+    return sum + (tokenBag.indexOf(token) !== -1 ? 1 : 0);
   }, 0);
+  return hits;
 }
 
 function localSearch(filters) {
