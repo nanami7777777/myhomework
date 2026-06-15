@@ -117,7 +117,8 @@ function localSearch(filters) {
       .filter(function (record) { return recordMatchesFilters(record, filters); })
       .map(function (record) { return ({
         id: record.id, question: record.question, answer: record.answer,
-        type: record.type, level: record.level, score: 1.0,
+        type: record.type, level: record.level,
+        score: Number((1 + (record.supporting_facts || []).length * 0.1).toFixed(2)),
       }); })
       .slice(0, 50);
   }
@@ -127,9 +128,15 @@ function localSearch(filters) {
     .map(function (record) { return ({
       id: record.id, question: record.question, answer: record.answer,
       type: record.type, level: record.level,
-      score: Number((scoreRecord(record, queryTokens) + (record.supporting_facts || []).length * 0.1).toFixed(2)),
+      base: scoreRecord(record, queryTokens),
+      bonus: (record.supporting_facts || []).length * 0.1,
     }); })
-    .filter(function (record) { return record.score > 0; })
+    .filter(function (record) { return record.base > 0; })
+    .map(function (record) { return ({
+      id: record.id, question: record.question, answer: record.answer,
+      type: record.type, level: record.level,
+      score: Number((record.base + record.bonus).toFixed(2)),
+    }); })
     .sort(function (left, right) { return right.score - left.score; })
     .slice(0, 50);
 
