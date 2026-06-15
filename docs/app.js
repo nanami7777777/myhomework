@@ -116,31 +116,30 @@ function scoreRecord(record, queryTokens) {
   }, 0);
 }
 
-function fuzzyMatch(record, queryTokens) {
-  var lowerQuestion = record.question.toLowerCase();
-  return queryTokens.some(function (token) {
-    return lowerQuestion.indexOf(token) !== -1 || (record.answer && record.answer.toLowerCase().indexOf(token) !== -1);
-  });
-}
-
 function localSearch(filters) {
   var queryTokens = tokenize(filters.q);
-  return state.records
+  if (!queryTokens.length) {
+    return state.records
+      .filter(function (record) { return recordMatchesFilters(record, filters); })
+      .map(function (record) { return ({
+        id: record.id, question: record.question, answer: record.answer,
+        type: record.type, level: record.level, score: 1.0,
+      }); })
+      .slice(0, 50);
+  }
+
+  var scored = state.records
     .filter(function (record) { return recordMatchesFilters(record, filters); })
     .map(function (record) { return ({
-      id: record.id,
-      question: record.question,
-      answer: record.answer,
-      type: record.type,
-      level: record.level,
+      id: record.id, question: record.question, answer: record.answer,
+      type: record.type, level: record.level,
       score: Number((scoreRecord(record, queryTokens) + (record.supporting_facts || []).length * 0.1).toFixed(2)),
     }); })
-    .filter(function (record) {
-      if (!queryTokens.length) return true;
-      return record.score > 0 || fuzzyMatch(state.records.find(function (r) { return r.id === record.id; }), queryTokens);
-    })
+    .filter(function (record) { return record.score > 0; })
     .sort(function (left, right) { return right.score - left.score; })
     .slice(0, 50);
+
+  return scored;
 }
 
 function jaccard(left, right) {
